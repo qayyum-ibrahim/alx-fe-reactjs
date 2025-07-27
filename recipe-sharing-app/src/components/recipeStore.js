@@ -2,16 +2,21 @@ import { create } from "zustand";
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
+  favorites: [],
+  recommendations: [],
   searchTerm: "",
   filteredRecipes: [],
 
   addRecipe: (newRecipe) =>
-    set((state) => ({
-      recipes: [...state.recipes, newRecipe],
-      filteredRecipes: [...state.recipes, newRecipe].filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      ),
-    })),
+    set((state) => {
+      const updatedRecipes = [...state.recipes, newRecipe];
+      return {
+        recipes: updatedRecipes,
+        filteredRecipes: updatedRecipes.filter((r) =>
+          r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+        ),
+      };
+    }),
 
   updateRecipe: (updatedRecipe) =>
     set((state) => {
@@ -20,8 +25,8 @@ export const useRecipeStore = create((set) => ({
       );
       return {
         recipes: updated,
-        filteredRecipes: updated.filter((recipe) =>
-          recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+        filteredRecipes: updated.filter((r) =>
+          r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
         ),
       };
     }),
@@ -31,8 +36,8 @@ export const useRecipeStore = create((set) => ({
       const updated = state.recipes.filter((r) => r.id !== id);
       return {
         recipes: updated,
-        filteredRecipes: updated.filter((recipe) =>
-          recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+        filteredRecipes: updated.filter((r) =>
+          r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
         ),
       };
     }),
@@ -48,8 +53,27 @@ export const useRecipeStore = create((set) => ({
   setRecipes: (recipes) =>
     set((state) => ({
       recipes,
-      filteredRecipes: recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      filteredRecipes: recipes.filter((r) =>
+        r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
       ),
     })),
+
+  addFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: [...new Set([...state.favorites, recipeId])],
+    })),
+
+  removeFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== recipeId),
+    })),
+
+  generateRecommendations: () =>
+    set((state) => {
+      // Mock logic: Recommend a few favorites or similar by chance
+      const recommended = state.recipes.filter(
+        (recipe) => state.favorites.includes(recipe.id) || Math.random() > 0.7
+      );
+      return { recommendations: recommended };
+    }),
 }));

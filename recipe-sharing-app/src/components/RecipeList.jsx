@@ -1,5 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecipeStore } from "./recipeStore";
+import FavoriteButton from "./FavoriteButton";
 
 const RecipeList = () => {
   const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
@@ -19,6 +20,7 @@ const RecipeList = () => {
               {recipe.title}
             </h3>
           </Link>
+          <FavoriteButton recipeId={recipe.id} />
         </div>
       ))}
     </div>
