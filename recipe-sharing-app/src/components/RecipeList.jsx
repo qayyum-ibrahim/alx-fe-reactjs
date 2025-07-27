@@ -11,9 +11,14 @@ const RecipeList = () => {
       <h2>Filtered Recipes</h2>
       {filteredRecipes.map((recipe) => (
         <div key={recipe.id} className="mb-4 p-2 border">
-          <div onClick={() => navigate(`/recipe/${recipe.id}`)}>
-            <h3 className="text-blue-600 underline">{recipe.title}</h3>
-          </div>
+          <Link to={`/recipe/${recipe.id}`}>
+            <h3
+              onClick={() => navigate(`/recipe/${recipe.id}`)}
+              className="text-blue-600 underline"
+            >
+              {recipe.title}
+            </h3>
+          </Link>
         </div>
       ))}
     </div>
