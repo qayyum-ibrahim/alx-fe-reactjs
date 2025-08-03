@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://api.github.com";
+const BASE_URL = "https://api.github.com/search/users?q=";
 
 export const fetchUsersByQuery = async ({ username, location, minRepos }) => {
   const searchParams = [];
@@ -12,7 +12,7 @@ export const fetchUsersByQuery = async ({ username, location, minRepos }) => {
   const query = searchParams.join("+");
 
   try {
-    const res = await axios.get(`${BASE_URL}/search/users?q=${query}`);
+    const res = await axios.get(`${BASE_URL}${query}`);
     return res.data.items;
   } catch (error) {
     throw new Error("Failed to fetch users");
