@@ -7,6 +7,8 @@ export default function RegistrationForm() {
     password: "",
   });
 
+  const { username, email, password } = formData;
+
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -60,9 +62,8 @@ export default function RegistrationForm() {
         <input
           type="text"
           name="username"
-          value={formData.username}
+          value={username}
           onChange={handleChange}
-          className="border p-2 w-full"
         />
       </div>
 
@@ -71,9 +72,8 @@ export default function RegistrationForm() {
         <input
           type="email"
           name="email"
-          value={formData.email}
+          value={email}
           onChange={handleChange}
-          className="border p-2 w-full"
         />
       </div>
 
@@ -82,9 +82,8 @@ export default function RegistrationForm() {
         <input
           type="password"
           name="password"
-          value={formData.password}
+          value={password}
           onChange={handleChange}
-          className="border p-2 w-full"
         />
       </div>
 
