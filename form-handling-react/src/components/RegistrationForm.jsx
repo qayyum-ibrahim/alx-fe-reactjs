@@ -22,11 +22,20 @@ export default function RegistrationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setErrors("All fields are required.");
+    if (!username) {
+      setErrors("Username is required.");
       return;
     }
 
+    if (!email) {
+      setErrors("Email is required.");
+      return;
+    }
+
+    if (!password) {
+      setErrors("Password is required.");
+      return;
+    }
     setErrors("");
 
     try {
@@ -47,7 +56,7 @@ export default function RegistrationForm() {
       setFormData({ username: "", email: "", password: "" });
     } catch (err) {
       console.error(err);
-      setError("Something went wrong!");
+      setErrors("Something went wrong!");
     }
   };
 
