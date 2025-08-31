@@ -9,7 +9,7 @@ export default function RegistrationForm() {
 
   const { username, email, password } = formData;
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,12 +22,12 @@ export default function RegistrationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.email || !formData.password) {
-      setError("All fields are required.");
+    if (!username || !email || !password) {
+      setErrors("All fields are required.");
       return;
     }
 
-    setError("");
+    setErrors("");
 
     try {
       // Mock API call
@@ -55,7 +55,7 @@ export default function RegistrationForm() {
     <form onSubmit={handleSubmit} className="space-y-4 p-4 border rounded">
       <h2 className="text-xl font-bold">Controlled Form</h2>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {errors && <p className="text-red-500">{errors}</p>}
 
       <div>
         <label className="block">Username:</label>
